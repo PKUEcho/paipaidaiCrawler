@@ -103,6 +103,10 @@ def parse_load_single_page(url, info):
 	div = soup.find_all(name = 'div', class_ = 'item')
 	ret_info.append(div[1].text)
 
+	# 投标数
+	a = soup.find_all(name = 'a', class_ = 'listname')
+	ret_info.append(str(len(a)))
+
 	return ret_info
 
 def output_to_file(file, info):

@@ -49,6 +49,8 @@ def parse_load_list_page(url):
 
 def parse_user_page(url):
 	html_content = do_request(url)
+	if html_content == "":
+		return []
 	soup = BeautifulSoup(html_content)
 	ret_info = []
 	user_info = []
@@ -76,6 +78,8 @@ def parse_user_page(url):
 
 def parse_load_single_page(url, info):
 	html_content = do_request(url)
+	if html_content == "":
+		return []
 	soup = BeautifulSoup(html_content)
 	ret_info = []
 
@@ -106,6 +110,10 @@ def parse_load_single_page(url, info):
 	# 投标数
 	a = soup.find_all(name = 'a', class_ = 'listname')
 	ret_info.append(str(len(a)))
+
+	# 信用等级
+	span = soup.find(name = 'span', title = '反映列表安全等级，等级越高逾期率越低')
+	ret_info.append(span['class'][1])
 
 	return ret_info
 
